@@ -1,0 +1,13 @@
+linear_regression:
+  slope: 3.0
+  intercept: 5.0
+  number_of_points: 1000
+  x_min: 0
+  x_max: 20
+  noise_STD: 2.0
+  random_seed: 42
+
+output_paths_Linear_Regression:
+  data_file: data/LinearReg/linear_data.csv
+  plot_file: plots/LinearReg/linear_data.png 
+
