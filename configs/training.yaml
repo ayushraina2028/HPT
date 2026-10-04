@@ -7,3 +7,9 @@ linear_regression:
   model_file: models/LinearReg/linear_model.json
   fit_plot_file: plots/LinearReg/linear_fit.png
 
+logistic_regression:
+  datafile: data/LogisticReg/logistic_data.csv
+  learning_rate: 0.001
+  epochs: 2000
+  random_seed: 42
+  loss_plot_file: plots/LogisticReg/logistic_loss.png
