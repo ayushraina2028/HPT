@@ -55,6 +55,11 @@ def main():
     plt.title("Linear Regression")
     plt.tight_layout()
 
+    output_path = Path(config['output_paths_Linear_Regression']['plot_file'])
+    output_path.parent.mkdir(
+        parents=True, exist_ok=True
+    )
+
     plt.savefig(
         config['output_paths_Linear_Regression']["plot_file"],
         dpi=300,
