@@ -13,3 +13,5 @@ logistic_regression:
   epochs: 2000
   random_seed: 42
   loss_plot_file: plots/LogisticReg/logistic_loss.png
+  model_file: models/LogisticReg/logistic_model.json
+  fit_plot_file: plots/LogisticReg/logistic_fit.png
