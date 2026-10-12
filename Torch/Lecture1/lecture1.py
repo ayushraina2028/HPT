@@ -102,3 +102,108 @@ print("Mean of X along rows: \n", torch.mean(X.to(torch.float), dim=1))
 # more are torch.argmax, torch.argmin, torch.var and can be computed along rows and cols.
 
 ########################### Matrix Operations ####################################
+X = torch.randint(size=(2,3),low=1,high=10)
+Y = torch.randint(size=(3,4),low=1,high=10)
+print("X, Y: \n")
+print(X)
+print(Y)
+print("Matrix Mult -> X@Y: \n", torch.matmul(X,Y))
+
+# Dot Product
+vector1 = torch.tensor([1,2,3])
+vector2 = torch.tensor([1,2,3])
+print("Dot Product vector1 . vector2: \n", torch.dot(vector1, vector2))
+
+# Transpose
+print("Transposed X:  \n", torch.transpose(X, dim0 = 0, dim1 = 1)) # swap dimension to enter here
+
+# Random float matrix
+print("Random Float Matrix: \n", torch.randint(size=(2,5), low = 1, high = 100, dtype=torch.float32))
+
+# Determinant
+print("Determinant of IDentity Matrix: \n", torch.det(torch.eye(4)))
+
+# Inverse
+print("Inverse of Identity Matrix: \n", torch.inverse(torch.eye(4)))
+
+
+############################# Comparisons ########################
+X = torch.tensor([[1,2,3],[4,5,6]])
+Y = torch.tensor([[3,2,1],[6,5,4]])
+
+# Comparisons return a boolena mask
+print(X > Y)
+print(X < Y)
+print(X == Y)
+print(X != Y)
+print(X >= Y)
+print(X <= Y)
+
+########################### Special Functions ##############################
+T = torch.randint(size=(3,4),low = 2, high = 12)
+print("T: \n", T)
+
+# more functions to use
+print("Log : \n", torch.log(T))
+print("Exp: \n", torch.exp(T))
+print("Sqrt: \n", torch.sqrt(T))
+print("Sigmoid: \n", torch.sigmoid(T))
+print("Softmax across cols: \n", torch.softmax(T.to(torch.float16), dim=0))
+print("Softmax across rows: \n", torch.softmax(T.to(torch.float16), dim=1))
+print("RelU ed: \n", torch.relu(T.to(torch.float16)))
+
+# m+n and save in m
+print("X: \n", X)
+print("Y: \n", Y)
+print("X+Y: \n", X.add_(Y))
+
+# Operation op + _ = implace. For eg add_, relu_, softmax_ etc.
+Y = X
+X[0][0] = -10
+print("Copy Y: \n", Y)
+# but if we make change to X, this will happen in Y also
+
+# NEw Copy
+Y = X.clone()
+X[0][0] = 0
+print(X)
+print(Y)
+
+# Moving to CUDA
+print(torch.cuda.is_available())
+device = torch.device('cuda')
+print(f"Using Device: {device}")
+
+# Tensors on GPU
+print("GPU Tensor: \n", torch.randint(size=(2,3), low = 1, high = 10, device=device))
+print("Converting Tensor")
+print(" Y.device = ", Y.device)
+Y = Y.to(device)
+print(" Y.device = ", Y.device)
+
+# Performance Difference in Both
+size = 10000
+matrix_cpu1 = torch.rand((size,size), dtype=torch.float)
+matrix_cpu2 = torch.rand((size,size), dtype=torch.float)
+
+print(f"CPU Matrix 1 - shape - {matrix_cpu1.shape} and device - {matrix_cpu1.device} ")
+print(f"CPU Matrix 2 - shape - {matrix_cpu2.shape} and device - {matrix_cpu2.device} ")
+
+import time 
+start_time = time.time()
+cpu_result = torch.matmul(matrix_cpu1, matrix_cpu2)
+end_time = time.time()
+print(f"CPU Execution Time: {(end_time - start_time):.3f} seconds")
+
+# Move to gpu
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+matrix_cpu1 = matrix_cpu1.to(device=device)
+matrix_cpu2 = matrix_cpu2.to(device=device)
+print(f"CPU Matrix 1 - shape - {matrix_cpu1.shape} and device - {matrix_cpu1.device} ")
+print(f"CPU Matrix 2 - shape - {matrix_cpu2.shape} and device - {matrix_cpu2.device} ")
+
+start_time = time.time()
+gpu_result = torch.matmul(matrix_cpu1, matrix_cpu2)
+end_time = time.time()
+print(f"GPU Execution Time: {(end_time - start_time):.3f} seconds")
+
